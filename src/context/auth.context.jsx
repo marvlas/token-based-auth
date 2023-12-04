@@ -1,3 +1,5 @@
+// src/context/auth.context.jsx
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 const API_URL = "http://localhost:5005";
@@ -9,8 +11,19 @@ function AuthProviderWrapper(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
 
+  const storeToken = (token) => {
+    localStorage.setItem("authToken", token);
+  };
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, isLoading, user }}>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        isLoading,
+        user,
+        storeToken,
+      }}
+    >
       {props.children}
     </AuthContext.Provider>
   );
